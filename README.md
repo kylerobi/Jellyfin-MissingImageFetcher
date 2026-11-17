@@ -19,8 +19,8 @@ Jellyfin picks the right build automatically:
 
 | Build | Jellyfin |
 |---|---|
-| `MissingPrimaryImages_1.0.0.0_jellyfin-12.zip` | every 12.x release (12.0 and newer) |
-| `MissingPrimaryImages_1.0.0.0_jellyfin-10.11.zip` | 10.11.x |
+| `MissingPrimaryImages_12.0.0.0_jellyfin-12.zip` (plugin version 12.0.0.0) | every 12.x release (12.0 and newer) |
+| `MissingPrimaryImages_10.11.0.0_jellyfin-10.11.zip` (plugin version 10.11.0.0) | 10.11.x |
 
 Updates published to the repository show up in the dashboard like any other plugin.
 

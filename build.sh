@@ -6,17 +6,18 @@
 #
 # Bump the versions below for a new release and update CHANGELOG.
 #
-# Both builds can share a version number. Jellyfin only offers a build whose targetAbi is
-# <= the server version, and on a tie it takes the entry listed FIRST in manifest.json,
-# so keep the newest Jellyfin line first in BUILDS.
+# Plugin versions follow the Jellyfin line they target (10.11.0.x, 12.0.0.x). Jellyfin only
+# offers a build whose targetAbi is <= the server version and picks the highest version, so a
+# 12.x server gets the 12.0.0.x build and a 10.11 server never sees it. For a bug-fix release,
+# bump the last number (e.g. 12.0.0.1).
 set -euo pipefail
 cd "$(dirname "$0")"
 
 # label | jellyfin package to compile against | plugin version | targetAbi (minimum server version)
 # The v12 build compiles against 12.0.0 so it loads on every 12.x server.
 BUILDS=(
-  "12|12.0.0|1.0.0.0|12.0.0.0"
-  "10.11|10.11.0|1.0.0.0|10.11.0.0"
+  "12|12.0.0|12.0.0.0|12.0.0.0"
+  "10.11|10.11.0|10.11.0.0|10.11.0.0"
 )
 CHANGELOG="Initial release"
 NAME="Missing Primary Images"

@@ -8,20 +8,20 @@
     "category": "Metadata",
     "versions": [
       {
-        "version": "1.0.0.0",
+        "version": "12.0.0.0",
         "changelog": "Initial release",
         "targetAbi": "12.0.0.0",
-        "sourceUrl": "https://raw.githubusercontent.com/kylerobi/jellyfin-plugin-missing-primary-images/main/dist/MissingPrimaryImages_1.0.0.0_jellyfin-12.zip",
-        "checksum": "cd0fffd7fc2c0897e896fd13d1c5d29e",
-        "timestamp": "2026-11-17T21:41:38Z"
+        "sourceUrl": "https://raw.githubusercontent.com/kylerobi/jellyfin-plugin-missing-primary-images/main/dist/MissingPrimaryImages_12.0.0.0_jellyfin-12.zip",
+        "checksum": "15756310eec40729d537fa17bf825933",
+        "timestamp": "2026-11-17T23:45:12Z"
       },
       {
-        "version": "1.0.0.0",
+        "version": "10.11.0.0",
         "changelog": "Initial release",
         "targetAbi": "10.11.0.0",
-        "sourceUrl": "https://raw.githubusercontent.com/kylerobi/jellyfin-plugin-missing-primary-images/main/dist/MissingPrimaryImages_1.0.0.0_jellyfin-10.11.zip",
-        "checksum": "222433bdfb1a9aa4280d98b39d54d363",
-        "timestamp": "2026-11-17T21:41:38Z"
+        "sourceUrl": "https://raw.githubusercontent.com/kylerobi/jellyfin-plugin-missing-primary-images/main/dist/MissingPrimaryImages_10.11.0.0_jellyfin-10.11.zip",
+        "checksum": "dc880a15551447f3702a176abc482887",
+        "timestamp": "2026-11-17T23:45:12Z"
       }
     ]
   }
