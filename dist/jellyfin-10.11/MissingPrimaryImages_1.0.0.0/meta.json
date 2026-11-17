@@ -1,0 +1,15 @@
+{
+  "category": "Metadata",
+  "changelog": "Initial release",
+  "description": "Scans your libraries for items without a Primary image and automatically fetches one.",
+  "guid": "8f3c2a71-5d4e-4b9a-9c61-2e7f0a4d6b15",
+  "name": "Missing Primary Images",
+  "overview": "Automatically fetch missing Primary images",
+  "owner": "local",
+  "targetAbi": "10.11.0.0",
+  "timestamp": "2026-11-17T20:03:01Z",
+  "version": "1.0.0.0",
+  "status": "Active",
+  "autoUpdate": false,
+  "assemblies": ["Jellyfin.Plugin.MissingPrimaryImages.dll"]
+}

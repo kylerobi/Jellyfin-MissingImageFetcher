@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Missing Primary Images</title>
+</head>
+<body>
+<div id="MissingPrimaryConfigPage" data-role="page" class="page type-interior pluginConfigurationPage" data-require="emby-input,emby-button,emby-checkbox">
+    <div data-role="content">
+        <div class="content-primary">
+            <form id="MissingPrimaryConfigForm">
+                <div class="sectionTitleContainer flex align-items-center">
+                    <h2 class="sectionTitle">Missing Primary Images</h2>
+                </div>
+                <p>
+                    Finds items with no Primary image (poster / thumbnail) and asks your enabled image
+                    providers to fetch one. Existing images and metadata are never replaced.
+                    Run it from <b>Dashboard → Scheduled Tasks → Library → Fetch Missing Primary Images</b>.
+                </p>
+
+                <h3>Item types to check</h3>
+                <div class="checkboxContainer"><label><input is="emby-checkbox" type="checkbox" id="IncludeMovies" /><span>Movies</span></label></div>
+                <div class="checkboxContainer"><label><input is="emby-checkbox" type="checkbox" id="IncludeSeries" /><span>TV series</span></label></div>
+                <div class="checkboxContainer"><label><input is="emby-checkbox" type="checkbox" id="IncludeSeasons" /><span>Seasons</span></label></div>
+                <div class="checkboxContainer"><label><input is="emby-checkbox" type="checkbox" id="IncludeEpisodes" /><span>Episodes</span></label></div>
+                <div class="checkboxContainer"><label><input is="emby-checkbox" type="checkbox" id="IncludeCollections" /><span>Collections</span></label></div>
+                <div class="checkboxContainer"><label><input is="emby-checkbox" type="checkbox" id="IncludeMusicAlbums" /><span>Music albums</span></label></div>
+                <div class="checkboxContainer"><label><input is="emby-checkbox" type="checkbox" id="IncludeMusicArtists" /><span>Music artists</span></label></div>
+                <div class="checkboxContainer"><label><input is="emby-checkbox" type="checkbox" id="IncludeMusicVideos" /><span>Music videos</span></label></div>
+                <div class="checkboxContainer"><label><input is="emby-checkbox" type="checkbox" id="IncludeBooks" /><span>Books &amp; audiobooks</span></label></div>
+                <div class="checkboxContainer"><label><input is="emby-checkbox" type="checkbox" id="IncludePeople" /><span>People (actors, directors…) — can be a very large number</span></label></div>
+
+                <h3>Behaviour</h3>
+                <div class="checkboxContainer checkboxContainer-withDescription">
+                    <label><input is="emby-checkbox" type="checkbox" id="AlsoFillMissingMetadata" /><span>Also fill in missing metadata</span></label>
+                    <div class="fieldDescription checkboxFieldDescription">Helps items with no TMDb/TVDb ID, because image providers need one to find artwork. Existing metadata is kept.</div>
+                </div>
+                <div class="checkboxContainer"><label><input is="emby-checkbox" type="checkbox" id="SkipLockedItems" /><span>Skip items with locked metadata</span></label></div>
+                <div class="checkboxContainer checkboxContainer-withDescription">
+                    <label><input is="emby-checkbox" type="checkbox" id="DryRun" /><span>Dry run (only log what would be fetched)</span></label>
+                    <div class="fieldDescription checkboxFieldDescription">Check the server log afterwards to see the list.</div>
+                </div>
+
+                <div class="inputContainer">
+                    <input is="emby-input" type="number" id="RetryAfterDays" min="0" label="Days to wait before retrying an item that had no image available" />
+                    <div class="fieldDescription">0 = retry every run.</div>
+                </div>
+                <div class="inputContainer">
+                    <input is="emby-input" type="number" id="MaxItemsPerRun" min="0" label="Maximum items per run" />
+                    <div class="fieldDescription">0 = no limit. The rest are picked up on the next run.</div>
+                </div>
+                <div class="inputContainer">
+                    <input is="emby-input" type="number" id="DelayBetweenItemsMs" min="0" label="Pause between items (milliseconds)" />
+                    <div class="fieldDescription">Avoids hammering TMDb, TVDb and other providers.</div>
+                </div>
+
+                <div>
+                    <button is="emby-button" type="submit" class="raised button-submit block emby-button"><span>Save</span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        (function () {
+            var pluginId = '8f3c2a71-5d4e-4b9a-9c61-2e7f0a4d6b15';
+            var bools = ['IncludeMovies', 'IncludeSeries', 'IncludeSeasons', 'IncludeEpisodes', 'IncludeCollections',
+                'IncludeMusicAlbums', 'IncludeMusicArtists', 'IncludeMusicVideos', 'IncludeBooks', 'IncludePeople',
+                'AlsoFillMissingMetadata', 'SkipLockedItems', 'DryRun'];
+            var ints = ['RetryAfterDays', 'MaxItemsPerRun', 'DelayBetweenItemsMs'];
+            var page = document.querySelector('#MissingPrimaryConfigPage');
+
+            page.addEventListener('pageshow', function () {
+                Dashboard.showLoadingMsg();
+                ApiClient.getPluginConfiguration(pluginId).then(function (config) {
+                    bools.forEach(function (k) { page.querySelector('#' + k).checked = !!config[k]; });
+                    ints.forEach(function (k) { page.querySelector('#' + k).value = config[k]; });
+                    Dashboard.hideLoadingMsg();
+                });
+            });
+
+            page.querySelector('#MissingPrimaryConfigForm').addEventListener('submit', function (e) {
+                e.preventDefault();
+                Dashboard.showLoadingMsg();
+                ApiClient.getPluginConfiguration(pluginId).then(function (config) {
+                    bools.forEach(function (k) { config[k] = page.querySelector('#' + k).checked; });
+                    ints.forEach(function (k) { config[k] = parseInt(page.querySelector('#' + k).value, 10) || 0; });
+                    ApiClient.updatePluginConfiguration(pluginId, config).then(function (result) {
+                        Dashboard.processPluginConfigurationUpdateResult(result);
+                    });
+                });
+                return false;
+            });
+        })();
+    </script>
+</div>
+</body>
+</html>
