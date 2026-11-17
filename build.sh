@@ -4,15 +4,19 @@
 #
 #   ./build.sh
 #
-# Plugin version numbering: 1.x targets Jellyfin 10.11, 2.x targets Jellyfin 12.4+.
-# Bump the versions below for a new release and add a CHANGELOG line.
+# Bump the versions below for a new release and update CHANGELOG.
+#
+# Both builds can share a version number. Jellyfin only offers a build whose targetAbi is
+# <= the server version, and on a tie it takes the entry listed FIRST in manifest.json,
+# so keep the newest Jellyfin line first in BUILDS.
 set -euo pipefail
 cd "$(dirname "$0")"
 
-# jellyfin package version | plugin version | targetAbi (minimum server version)
+# label | jellyfin package to compile against | plugin version | targetAbi (minimum server version)
+# The v12 build compiles against 12.0.0 so it loads on every 12.x server.
 BUILDS=(
-  "10.11.11|1.0.0.0|10.11.0.0"
-  "12.4.0|2.0.0.0|12.4.0.0"
+  "12|12.0.0|1.0.0.0|12.0.0.0"
+  "10.11|10.11.0|1.0.0.0|10.11.0.0"
 )
 CHANGELOG="Initial release"
 NAME="Missing Primary Images"
@@ -25,8 +29,8 @@ mkdir -p dist
 VERSIONS_JSON=""
 
 for b in "${BUILDS[@]}"; do
-  IFS='|' read -r JF VER ABI <<<"$b"
-  ZIP="missing-primary-images_${VER}.zip"
+  IFS='|' read -r LABEL JF VER ABI <<<"$b"
+  ZIP="MissingPrimaryImages_${VER}_jellyfin-${LABEL}.zip"
   STAGE="$(mktemp -d)"
   rm -rf src/bin src/obj
   dotnet build src -c Release -p:JellyfinVersion="$JF" -p:PluginVersion="$VER" -o "$STAGE/out" >/dev/null

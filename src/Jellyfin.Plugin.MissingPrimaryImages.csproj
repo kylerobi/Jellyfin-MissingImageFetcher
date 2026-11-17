@@ -2,15 +2,15 @@
 
   <!--
     Jellyfin plugins only load on the server version they were compiled against.
-    Default: Jellyfin 10.11.x (.NET 9).  For Jellyfin 12.x build with:
-      dotnet build -c Release -p:JellyfinVersion=12.4.0
+    Default: Jellyfin 12.x (.NET 10), compiled against 12.0.0 so it loads on every 12.x server.
+    For Jellyfin 10.11.x build with:
+      dotnet build -c Release -p:JellyfinVersion=10.11.0
   -->
   <PropertyGroup>
-    <JellyfinVersion Condition="'$(JellyfinVersion)' == ''">10.11.11</JellyfinVersion>
+    <JellyfinVersion Condition="'$(JellyfinVersion)' == ''">12.0.0</JellyfinVersion>
     <TargetFramework Condition="$(JellyfinVersion.StartsWith('10.'))">net9.0</TargetFramework>
     <TargetFramework Condition="'$(TargetFramework)' == ''">net10.0</TargetFramework>
     <RootNamespace>Jellyfin.Plugin.MissingPrimaryImages</RootNamespace>
-    <!-- build.sh sets this per Jellyfin line: 1.x = Jellyfin 10.11, 2.x = Jellyfin 12.4+ -->
     <PluginVersion Condition="'$(PluginVersion)' == ''">1.0.0.0</PluginVersion>
     <AssemblyVersion>$(PluginVersion)</AssemblyVersion>
     <FileVersion>$(PluginVersion)</FileVersion>

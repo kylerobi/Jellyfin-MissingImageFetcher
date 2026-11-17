@@ -17,17 +17,17 @@ screen grabber, …) to fetch one. It never replaces images or metadata you alre
 
 Jellyfin picks the right build automatically:
 
-| Plugin version | Jellyfin |
+| Build | Jellyfin |
 |---|---|
-| 2.x | 12.4 and newer |
-| 1.x | 10.11.x |
+| `MissingPrimaryImages_1.0.0.0_jellyfin-12.zip` | every 12.x release (12.0 and newer) |
+| `MissingPrimaryImages_1.0.0.0_jellyfin-10.11.zip` | 10.11.x |
 
 Updates published to the repository show up in the dashboard like any other plugin.
 
 ### Manual install
 
 Create a folder `MissingPrimaryImages` inside your Jellyfin `plugins` folder, unzip the matching zip
-from `dist/` into it (`missing-primary-images_2.x` for 12.4+, `_1.x` for 10.11), and restart Jellyfin.
+from `dist/` into it (`..._jellyfin-12.zip` for any 12.x server, `..._jellyfin-10.11.zip` for 10.11), and restart Jellyfin.
 
 - Docker: `<your /config volume>/plugins/`
 - Linux package: `/var/lib/jellyfin/plugins/`
