@@ -4,22 +4,36 @@ Scans your libraries for items that have **no Primary image** (poster / cover / 
 and asks Jellyfin's own image providers (TMDb, TVDb, MusicBrainz/AudioDB, embedded artwork,
 screen grabber, …) to fetch one. It never replaces images or metadata you already have.
 
-## Install
+## Install (recommended: from the plugin repository)
 
-Use the zip that matches your server version (Dashboard → About shows it):
+1. Dashboard → **Plugins** → **Repositories** (on older versions: Plugins → Repositories tab) → **+**
+2. Name: `Missing Primary Images`
+   Repository URL:
+   ```
+   https://raw.githubusercontent.com/kylerobi/jellyfin-plugin-missing-primary-images/main/manifest.json
+   ```
+3. Go to **Catalog**, find **Missing Primary Images** (under Metadata) and install it.
+4. Restart Jellyfin.
 
-| Your Jellyfin | Use |
+Jellyfin picks the right build automatically:
+
+| Plugin version | Jellyfin |
 |---|---|
-| 12.4 or newer | `dist/MissingPrimaryImages_1.0.0.0_jellyfin-12.4.zip` |
-| 10.11.x | `dist/MissingPrimaryImages_1.0.0.0_jellyfin-10.11.zip` |
+| 2.x | 12.4 and newer |
+| 1.x | 10.11.x |
 
-1. Unzip it into your Jellyfin `plugins` folder, so you end up with
-   `plugins/MissingPrimaryImages_1.0.0.0/Jellyfin.Plugin.MissingPrimaryImages.dll` + `meta.json`.
-   - Docker: `<your /config volume>/plugins/`
-   - Linux package: `/var/lib/jellyfin/plugins/`
-   - Windows: `%LOCALAPPDATA%\jellyfin\plugins\` (or `C:\ProgramData\Jellyfin\Server\plugins\`)
-2. Restart Jellyfin.
-3. Dashboard → Plugins → **Missing Primary Images** to adjust settings.
+Updates published to the repository show up in the dashboard like any other plugin.
+
+### Manual install
+
+Create a folder `MissingPrimaryImages` inside your Jellyfin `plugins` folder, unzip the matching zip
+from `dist/` into it (`missing-primary-images_2.x` for 12.4+, `_1.x` for 10.11), and restart Jellyfin.
+
+- Docker: `<your /config volume>/plugins/`
+- Linux package: `/var/lib/jellyfin/plugins/`
+- Windows: `%LOCALAPPDATA%\jellyfin\plugins\` (or `C:\ProgramData\Jellyfin\Server\plugins\`)
+
+Then Dashboard → Plugins → **Missing Primary Images** to adjust settings.
 
 ## Use
 
@@ -50,11 +64,13 @@ Tip: turn on **Dry run** first to see what it would touch.
 Images come only from the providers enabled on each library (Library → Manage → Image fetchers),
 so if a provider is disabled there, this plugin won't use it either.
 
-## Build
+## Build / release
 
-Requires the .NET 10 SDK (it can also build the .NET 9 target).
+Requires the .NET 10 SDK (it also builds the .NET 9 target) and `zip`.
 
 ```bash
-./build.sh                # both 10.11 and 12.4 packages into dist/
-./build.sh 12.4.0         # one version
+./build.sh
 ```
+
+This builds both zips into `dist/` and rewrites `manifest.json` with their checksums.
+For a new release, bump the versions and changelog at the top of `build.sh`, run it, and push.

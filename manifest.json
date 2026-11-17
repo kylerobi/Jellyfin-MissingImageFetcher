@@ -1,0 +1,28 @@
+[
+  {
+    "guid": "8f3c2a71-5d4e-4b9a-9c61-2e7f0a4d6b15",
+    "name": "Missing Primary Images",
+    "description": "Scans your libraries for items that have no Primary image (poster, cover, thumbnail) and asks your enabled image providers to fetch one. Never replaces existing images or metadata.",
+    "overview": "Automatically fetch missing Primary images",
+    "owner": "jellyfin-plugin-missing-primary-images",
+    "category": "Metadata",
+    "versions": [
+      {
+        "version": "1.0.0.0",
+        "changelog": "Initial release",
+        "targetAbi": "10.11.0.0",
+        "sourceUrl": "https://raw.githubusercontent.com/kylerobi/jellyfin-plugin-missing-primary-images/main/dist/missing-primary-images_1.0.0.0.zip",
+        "checksum": "d23038f97d2a6b4d8e794105611eb350",
+        "timestamp": "2026-11-17T20:30:12Z"
+      },
+      {
+        "version": "2.0.0.0",
+        "changelog": "Initial release",
+        "targetAbi": "12.4.0.0",
+        "sourceUrl": "https://raw.githubusercontent.com/kylerobi/jellyfin-plugin-missing-primary-images/main/dist/missing-primary-images_2.0.0.0.zip",
+        "checksum": "e0ee8cda137edcab6d94f3c0533b355d",
+        "timestamp": "2026-11-17T20:30:12Z"
+      }
+    ]
+  }
+]

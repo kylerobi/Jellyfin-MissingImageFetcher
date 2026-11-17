@@ -10,8 +10,10 @@
     <TargetFramework Condition="$(JellyfinVersion.StartsWith('10.'))">net9.0</TargetFramework>
     <TargetFramework Condition="'$(TargetFramework)' == ''">net10.0</TargetFramework>
     <RootNamespace>Jellyfin.Plugin.MissingPrimaryImages</RootNamespace>
-    <AssemblyVersion>1.0.0.0</AssemblyVersion>
-    <FileVersion>1.0.0.0</FileVersion>
+    <!-- build.sh sets this per Jellyfin line: 1.x = Jellyfin 10.11, 2.x = Jellyfin 12.4+ -->
+    <PluginVersion Condition="'$(PluginVersion)' == ''">1.0.0.0</PluginVersion>
+    <AssemblyVersion>$(PluginVersion)</AssemblyVersion>
+    <FileVersion>$(PluginVersion)</FileVersion>
     <Nullable>enable</Nullable>
     <ImplicitUsings>disable</ImplicitUsings>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
